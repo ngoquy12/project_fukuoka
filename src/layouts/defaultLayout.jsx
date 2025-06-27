@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { LayoutDashboard, Store, UsersRound, Warehouse } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import HeaderComponent from "../components/header";
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -44,10 +37,14 @@ const items = [
 
 export default function DefaultLayout() {
   const [collapsed, setCollapsed] = useState(false);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  return (
+
+  // Mô phỏng việc người dùng đã đăng nhập hay chưa?
+  const isLogin = false;
+  return isLogin ? (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
         width={298}
@@ -107,5 +104,7 @@ export default function DefaultLayout() {
         </Footer>
       </Layout>
     </Layout>
+  ) : (
+    <Navigate to={"/login"} />
   );
 }
