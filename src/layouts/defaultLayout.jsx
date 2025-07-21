@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { LayoutDashboard, Store, UsersRound, Warehouse } from "lucide-react";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import HeaderComponent from "../components/header";
+import Cookies from "js-cookie";
 const { Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -36,15 +37,22 @@ const items = [
 ];
 
 export default function DefaultLayout() {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // Mô phỏng việc người dùng đã đăng nhập hay chưa?
-  const isLogin = false;
-  return isLogin ? (
+  useEffect(() => {
+    const accessToken = Cookies.get("access_token");
+
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
         width={298}
@@ -104,7 +112,5 @@ export default function DefaultLayout() {
         </Footer>
       </Layout>
     </Layout>
-  ) : (
-    <Navigate to={"/login"} />
   );
 }

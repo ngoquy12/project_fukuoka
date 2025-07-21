@@ -5,6 +5,9 @@ import { RouterProvider } from "react-router-dom";
 import routers from "./routes/index.route";
 import { ConfigProvider } from "antd";
 import viVN from "antd/locale/vi_VN"; // Ngôn ngữ Tiếng Việt
+import { setupInterceptor } from "./utils/http";
+
+setupInterceptor();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

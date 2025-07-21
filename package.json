@@ -12,10 +12,11 @@
   "dependencies": {
     "antd": "^5.26.2",
     "axios": "^1.10.0",
+    "js-cookie": "^3.0.5",
     "lucide": "^0.523.0",
     "lucide-react": "^0.523.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {

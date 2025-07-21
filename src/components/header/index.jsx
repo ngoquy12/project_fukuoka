@@ -9,9 +9,24 @@ import {
   Settings,
   UserRound,
 } from "lucide-react";
-import React from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderComponent() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Xóa thông tin người dùng khỏi local
+    localStorage.removeItem("userLogined");
+
+    // Xóa thông tin accessTokne và refreshToken khỏi cookie
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
+
+    // Chuyển hướng về trang đăng nhập
+    navigate("/login");
+  };
+
   const items = [
     {
       label: (
@@ -66,7 +81,10 @@ export default function HeaderComponent() {
     },
     {
       label: (
-        <div className="flex items-center gap-2 px-2 py-1">
+        <div
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-2 py-1"
+        >
           <Power size={20} />
           <span>Đăng xuất</span>
         </div>
